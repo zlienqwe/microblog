@@ -1,0 +1,17 @@
+extends layout
+
+
+block content
+  case user
+    when true
+      p 注册成功
+    when false
+      p 注册失败
+    default
+      p
+
+  h1= title
+  form(method='post' action='/reg')
+    input(placeholder='账号' type='text' name='username')
+    input(placeholder='密码' type='password' name='password')
+    button(type='submit') 注册
