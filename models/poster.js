@@ -28,7 +28,6 @@ Poster.getAll = function get(callback) {
   });
 }
 Poster.getCurrent = function get(id, callback) {
-  console.log(id)
   var sql = "SELECT * FROM poster where id = '"+ id + "' limit 1";
   console.log(sql)
   db.query(sql, function (err, result, fields) {
@@ -55,7 +54,6 @@ Poster.deleteCurrent = function get(id, callback) {
 
 Poster.editThisPoster = function get(poster, callback) {
   var sql = "UPDATE poster SET title='"+ poster.title +"', content='"+ poster.content +"'  WHERE id='" + poster.id + "'"
-  console.log(sql)
   db.query(sql, function (err, result, fields) {
     if (err) throw err;
     callback(result)

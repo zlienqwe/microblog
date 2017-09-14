@@ -21,14 +21,17 @@ Comment.getByPosterId = function get(poster_id, callback) {
 };
 
 Comment.addCommentForCurrentPoster = function save(comment, callback) {
-  console.log(comment)
-  console.log('asdasdasdasdadasdasdasda')
-
   var sql = "INSERT INTO comment (nickname, content, poster_id) VALUES('"+ comment.nickname +"','"+ comment.content +"','"+  comment.poster_id +"');"
   db.query(sql, function (err, result, fields) {
     if (err) throw err;
     callback(result)
   });
-
 }
 
+Comment.deleteCommentByPosterId  =function save(id, callback) {
+  var sql = "DELETE FROM comment WHERE poster_id='"+ id + "'";
+  db.query(sql, function (err, result, fields) {
+    if (err) throw err;
+    callback(result)
+  });
+}

@@ -1,7 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../models/user');
-var Poster = require('../models/poster')
+var Poster = require('../models/poster');
+var Comment = require('../models/comment');
 
 
 function ifUserExist(req, res, callback) {
@@ -22,14 +23,14 @@ router.post('/detail', function (req, res, next) {
   })
 })
 router.post('/delete', function (req, res, next) {
-  Poster.deleteCurrent(req.body.id, function (result) {
-    res.send({flag: 1});
+  Comment.deleteCommentByPosterId(req.body.id, function (result) {
+    Poster.deleteCurrent(req.body.id, function (result) {
+      res.send({flag: 1});
+    })
   })
 })
 router.post('/new', function (req, res, next) {
   ifUserExist(req, res, function (req, data) {
-    console.log('asdasdasdasdasdasdasdasdasdasdasdasdasdasd')
-    console.log(req.body)
     Poster.save(req.body, function () {
       res.send({flag: 1})
     })
@@ -38,8 +39,6 @@ router.post('/new', function (req, res, next) {
 
 router.post('/edit', function (req, res, next) {
   ifUserExist(req, res, function (req, data) {
-    console.log('asdasdasdasdasdasdasdasdasdasdasdasdasdasd')
-    console.log(req.body)
     Poster.editThisPoster(req.body, function () {
       res.send({flag: 1})
     })
