@@ -12,6 +12,7 @@ var login = require('./routes/login');
 var reg = require('./routes/register');
 var users = require('./routes/users');
 var post = require('./routes/post');
+var comment = require('./routes/comment');
 var logout = require('./routes/logout');
 var authors = require('./routes/authors');
 
@@ -48,6 +49,7 @@ app.use('/login', login);
 app.use('/reg', reg);
 app.use('/u', users);
 app.use('/post', post);
+app.use('/comment', comment);
 app.use('/logout', logout);
 app.use('/authors', authors);
 
