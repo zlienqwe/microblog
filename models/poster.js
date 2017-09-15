@@ -4,6 +4,8 @@ function Poster(poster) {
   this.title = poster.title;
   this.content = poster.content;
   this.user_id = poster.user_id;
+  this.create_time = poster.create_time;
+  this.last_update_time = poster.last_update_time;
 };
 
 module.exports = Poster;
@@ -13,7 +15,7 @@ Poster.prototype.save = function save(callback) {
 }
 
 Poster.get = function get(user_id, callback) {
-  var sql = "SELECT * FROM poster where user_id = '"+ user_id + "'";
+  var sql = "SELECT * FROM poster where user_id = '"+ user_id + "' ORDER BY last_update_time DESC";
   db.query(sql, function (err, result, fields) {
     if (err) throw err;
     callback(result)
@@ -21,12 +23,13 @@ Poster.get = function get(user_id, callback) {
 }
 
 Poster.getAll = function get(callback) {
-  var sql = "SELECT * FROM poster";
+  var sql = "SELECT * FROM poster ORDER BY last_update_time DESC";
   db.query(sql, function (err, result, fields) {
     if (err) throw err;
     callback(result)
   });
-}
+};
+
 Poster.getCurrent = function get(id, callback) {
   var sql = "SELECT * FROM poster where id = '"+ id + "' limit 1";
   console.log(sql)
@@ -37,7 +40,8 @@ Poster.getCurrent = function get(id, callback) {
 }
 
 Poster.save = function get(poster, callback) {
-  var sql = "INSERT INTO poster (title, content, user_id) VALUES('"+ poster.title +"','"+ poster.content +"','"+  poster.user_id +"');"
+  var now = Date.now();
+  var sql = "INSERT INTO poster (title, content, user_id, create_time, last_update_time) VALUES('"+ poster.title +"','"+ poster.content +"','"+  poster.user_id +"','"+ now +"','"+ now +"');"
   db.query(sql, function (err, result, fields) {
     if (err) throw err;
     callback(result)
@@ -53,7 +57,8 @@ Poster.deleteCurrent = function get(id, callback) {
 };
 
 Poster.editThisPoster = function get(poster, callback) {
-  var sql = "UPDATE poster SET title='"+ poster.title +"', content='"+ poster.content +"'  WHERE id='" + poster.id + "'"
+  var now = Date.now();
+  var sql = "UPDATE poster SET title='"+ poster.title +"', content='"+ poster.content +"', last_update_time='" + now +"'  WHERE id='" + poster.id + "'"
   db.query(sql, function (err, result, fields) {
     if (err) throw err;
     callback(result)

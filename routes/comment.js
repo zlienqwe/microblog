@@ -10,8 +10,11 @@ router.post('/get', function (req, res, next) {
 })
 
 router.post('/new', function (req, res, next) {
-  Comment.addCommentForCurrentPoster(req.body, function (result) {
-    res.send({flag: 1});
+  var now = Date.now();
+  var data = req.body;
+  data.create_time = now;
+  Comment.addCommentForCurrentPoster(data, function (result) {
+    res.send({flag: 1, result: data});
   })
 })
 

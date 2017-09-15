@@ -22,6 +22,8 @@ var app = express()
   , cors = require('cors');
 app.use(cors());
 
+app.set('title', 'My Site');
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -43,6 +45,11 @@ app.use(cookieSession({
 }));
 
 
+
+app.use(function (req, res, next) {
+  console.log('Time: %d', Date.now());
+  next();
+})
 
 app.use('/', index);
 app.use('/login', login);
