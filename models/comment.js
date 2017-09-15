@@ -36,3 +36,14 @@ Comment.deleteCommentByPosterId  =function save(id, callback) {
     callback(result)
   });
 }
+
+Comment.deleteCommentByCommentId  =function save(id, callback) {
+  console.log(id)
+  console.log(id)
+  var sql = "DELETE FROM comment WHERE id='"+ id + "'";
+  console.log(sql)
+  db.query(sql, function (err, result, fields) {
+    if (err) throw err;
+    callback(result)
+  });
+}

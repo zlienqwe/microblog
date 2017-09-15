@@ -18,5 +18,13 @@ router.post('/new', function (req, res, next) {
   })
 })
 
+router.post('/delete', function (req, res, next) {
+  var data = req.body;
+  Comment.deleteCommentByCommentId(data.id, function (result) {
+    res.send({flag: 1});
+  })
+})
+
+
 
 module.exports = router;
